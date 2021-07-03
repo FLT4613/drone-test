@@ -42,3 +42,5 @@ steps:
   volumes:
   - name: cache
     path: /cache
+  commands:
+  - ls -al ~
