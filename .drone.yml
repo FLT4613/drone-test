@@ -20,7 +20,7 @@ steps:
   - black .
   - env
   - pwd
-  - ls ~
+  - ls -al ~/.cache
 
 # - name: format
 #   image: appleboy/drone-git-push
