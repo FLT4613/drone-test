@@ -2,13 +2,40 @@ kind: pipeline
 name: default
 
 steps:
+
+- name: restore-cache
+  image: drillster/drone-volume-cache
+  settings:
+    restore: true
+    mount:
+      - ./.cache/pip
+  volumes:
+  - name: cache
+    path: /cache
+
 - name: test
   image: python
   commands:
   - pip install -r requirements.txt
   - black .
 
-- name: test2
-  image: python
-  commands:
-  - cat hoge.py
+- name: format
+  image: appleboy/drone-git-push
+  settings:
+    branch: master
+    remote: https://github.com/FLT4613/drone-test.git
+    force: false
+    commit: true
+    commit_message: "[skip ci] AutoFormat"
+
+
+
+- name: rebuild-cache
+  image: drillster/drone-volume-cache
+  settings:
+    rebuild: true
+    mount:
+      - ./.cache/pip
+  volumes:
+  - name: cache
+    path: /cache
