@@ -18,6 +18,9 @@ steps:
   commands:
   - pip install -r requirements.txt
   - black .
+  - env
+  - pwd
+  - ls ~
 
 # - name: format
 #   image: appleboy/drone-git-push
